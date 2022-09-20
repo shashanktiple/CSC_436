@@ -110,7 +110,7 @@ const Product = class Product {
     constructor(value){
         const inputArray = value.split(",");
         this.name = inputArray[0];
-        this.price = Math.trunc(inputArray[1]);
+        this.price = parseFloat(inputArray[1]);
         this.availability = inputArray[2];
     }
 
@@ -142,8 +142,7 @@ const Product = class Product {
      * Reference: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array 
      */
     static halfOff = (products) => {
-        const newArray = products.map((x) => x.price * 0.5);
-        return newArray;
+        return products.map(product => { return {product, price: product.price * 0.5};});
     }
         // price * 0.5);
 
@@ -160,7 +159,12 @@ const Product = class Product {
      * Reference: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array 
      * Reference: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat (currency formatting)
      */
-    static printProducts = (products) => {}
+    static printProducts = (products) => {
+        products.map(x => {
+            console.log("Product: " + x.name +", Cost: $" + x.price.toFixed(2) + ", Availability: " + (x.availability == "In Stock" ? "Yes" : "No"));
+        });
+
+    }
 
  };
 
